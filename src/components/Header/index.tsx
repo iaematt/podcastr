@@ -14,7 +14,7 @@ export function Header() {
     <header className={styles.container}>
       <Link href="/">
         <a title="Podcastr">
-          <img src="logo.svg" alt="Podcastr" />
+          <img src="/logo.svg" alt="Podcastr" />
         </a>
       </Link>
 
