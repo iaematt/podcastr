@@ -3,6 +3,7 @@ import Head from "next/head";
 import Image from "next/image";
 import Link from "next/link";
 import { format, parseISO } from "date-fns";
+import { useRouter } from "next/router";
 import ptBR from "date-fns/locale/pt-BR";
 
 import { api } from "@services/api";
@@ -27,6 +28,12 @@ type EpisodeProps = {
 };
 
 export default function Episode({ episode }: EpisodeProps) {
+  const router = useRouter();
+
+  if (router.isFallback) {
+    <p>Carregando...</p>;
+  }
+
   return (
     <>
       <Head>

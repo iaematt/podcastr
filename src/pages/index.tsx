@@ -1,8 +1,9 @@
 import React, { useContext } from "react";
-import { GetStaticProps } from "next";
+import { GetStaticProps, GetStaticPaths } from "next";
 import Image from "next/image";
 import Link from "next/link";
 import { format, parseISO } from "date-fns";
+import { useRouter } from "next/router";
 import ptBR from "date-fns/locale/pt-BR";
 
 import { api } from "@services/api";
@@ -29,6 +30,11 @@ type HomeProps = {
 
 export default function Home({ latestEpisodes, allEpisodes }: HomeProps) {
   const { play } = useContext(PlayerContext);
+  const router = useRouter();
+
+  if (router.isFallback) {
+    <p>Carregando</p>;
+  }
 
   return (
     <div className={styles.homepage}>
@@ -116,6 +122,13 @@ export default function Home({ latestEpisodes, allEpisodes }: HomeProps) {
     </div>
   );
 }
+
+export const getStaticPaths: GetStaticPaths = async () => {
+  return {
+    paths: [],
+    fallback: "blocking",
+  };
+};
 
 export const getStaticProps: GetStaticProps = async () => {
   const { data } = await api.get("episodes", {
