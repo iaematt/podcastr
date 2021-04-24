@@ -1,10 +1,10 @@
 # Podcastr 🎧
 
-Player de podcast desenvolvido na semana NLW da Rocketseat.
+Player de podcast desenvolvido no evento NLW da Rocketseat.
 
-Para visualizar o projeto online [acesse este link](https://podcastr-ivory.vercel.app/)
+![Screenshot](https://i.ibb.co/LvhCrqk/thumbnail.png)
 
-## Instalações e usos
+## Instalação
 
 Faça o download [desse repositório](https://github.com/iaematt/podcastr)
 
@@ -15,18 +15,26 @@ git clone https://github.com/iaematt/podcastr
 Acesse a pasta e faça a instalação
 cd podcastr
 yarn
+```
 
-Rode o servidor
+## Uso
+
+```
+Use para executar o servidor da api
 yarn server
 
-Rode o projeto nextjs
+Use para executar o projeto Next.js
 yarn dev
 
-Use o comando para fazer uma build
+Use o comando para realizar uma build do projeto
 yarn build
 ```
 
-Acesse o projeto em http://localhost:3000;
+Acesse o projeto em http://localhost:3000; A api fica online na porta 3333: http://localhost:33333
+
+## Meta
+
+Matheus Bastos – matheusbastos@outlook.com
 
 ## Licença
 
