@@ -1,36 +1,36 @@
-import React from "react";
-import { GetStaticProps, GetStaticPaths } from "next";
-import Image from "next/image";
-import Link from "next/link";
-import { format, parseISO } from "date-fns";
-import ptBR from "date-fns/locale/pt-BR";
+import React from 'react'
+import { GetStaticProps, GetStaticPaths } from 'next'
+import Image from 'next/image'
+import Link from 'next/link'
+import { format, parseISO } from 'date-fns'
+import ptBR from 'date-fns/locale/pt-BR'
 
-import { api } from "@services/api";
-import { convertDurationToTimeString } from "@utils/convertDurationToTimeString";
-import { usePlayer } from "@contexts/PlayerContext";
+import { api } from '@services/api'
+import { convertDurationToTimeString } from '@utils/convertDurationToTimeString'
+import { usePlayer } from '@contexts/PlayerContext'
 
-import styles from "./home.module.scss";
+import styles from './home.module.scss'
 
 type Episode = {
-  id: string;
-  title: string;
-  members: string;
-  publishedAt: string;
-  duration: number;
-  durationAsString: string;
-  thumbnail: string;
-  url: string;
-};
+  id: string
+  title: string
+  members: string
+  publishedAt: string
+  duration: number
+  durationAsString: string
+  thumbnail: string
+  url: string
+}
 
 type HomeProps = {
-  latestEpisodes: Episode[];
-  allEpisodes: Episode[];
-};
+  latestEpisodes: Episode[]
+  allEpisodes: Episode[]
+}
 
 export default function Home({ latestEpisodes, allEpisodes }: HomeProps) {
-  const { playList } = usePlayer();
+  const { playList } = usePlayer()
 
-  const episodesList = [...latestEpisodes, ...allEpisodes];
+  const episodesList = [...latestEpisodes, ...allEpisodes]
 
   return (
     <div className={styles.homepage}>
@@ -65,7 +65,7 @@ export default function Home({ latestEpisodes, allEpisodes }: HomeProps) {
                   <img src="/img/play-green.svg" alt="Tocar episódio" />
                 </button>
               </li>
-            );
+            )
           })}
         </ul>
       </section>
@@ -118,49 +118,49 @@ export default function Home({ latestEpisodes, allEpisodes }: HomeProps) {
                     </button>
                   </td>
                 </tr>
-              );
+              )
             })}
           </tbody>
         </table>
       </section>
     </div>
-  );
+  )
 }
 
 export const getStaticProps: GetStaticProps = async () => {
-  const { data } = await api.get("episodes", {
+  const { data } = await api.get('episodes', {
     params: {
       _limit: 12,
-      _sort: "published_at",
-      _order: "desc",
-    },
-  });
+      _sort: 'published_at',
+      _order: 'desc'
+    }
+  })
 
-  const episodes = data.map((episode) => {
+  const episodes = data.map(episode => {
     return {
       id: episode.id,
       title: episode.title,
       members: episode.members,
-      publishedAt: format(parseISO(episode.published_at), "d MMM yy", {
-        locale: ptBR,
+      publishedAt: format(parseISO(episode.published_at), 'd MMM yy', {
+        locale: ptBR
       }),
       duration: Number(episode.file.duration),
       durationAsString: convertDurationToTimeString(
         Number(episode.file.duration)
       ),
       thumbnail: episode.thumbnail,
-      url: episode.file.url,
-    };
-  });
+      url: episode.file.url
+    }
+  })
 
-  const latestEpisodes = episodes.slice(0, 2);
-  const allEpisodes = episodes.slice(2, episodes.lenght);
+  const latestEpisodes = episodes.slice(0, 2)
+  const allEpisodes = episodes.slice(2, episodes.lenght)
 
   return {
     props: {
       latestEpisodes,
-      allEpisodes,
+      allEpisodes
     },
-    revalidate: 60 * 60 * 8,
-  };
-};
+    revalidate: 60 * 60 * 8
+  }
+}
