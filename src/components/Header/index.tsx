@@ -20,7 +20,12 @@ export function Header() {
 
       <p>O melhor para você ouvir, sempre</p>
 
-      <span>{currentDate}</span>
+      <span>
+        {currentDate} |{" "}
+        <a href="https://github.com/iaematt/podcastr" target="_blank">
+          GitHub
+        </a>
+      </span>
     </header>
   );
 }
